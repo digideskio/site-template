@@ -64,3 +64,8 @@ STATIC_URL = '/static/'
 
 SITE_ID = 1
 SITE_NAME = '{{ project_name }}'
+
+# redirect migrations
+MIGRATION_MODULES = {
+    'web': 'leonardo_site.migrations.web',
+}
