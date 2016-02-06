@@ -75,3 +75,5 @@ SITE_NAME = '{{ project_name }}'
 MIGRATION_MODULES = {
     'web': 'leonardo_site.migrations.web',
 }
+
+LEONARDO_BOOTSTRAP_URL = 'http://github.com/django-leonardo/django-leonardo/raw/master/contrib/bootstrap/demo.yaml'
