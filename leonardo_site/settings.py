@@ -78,3 +78,9 @@ MIGRATION_MODULES = {
 }
 
 LEONARDO_BOOTSTRAP_URL = 'http://github.com/django-leonardo/django-leonardo/raw/master/contrib/bootstrap/demo.yaml'
+
+try:
+    from leonardo.conf.horizon import *
+    from leonardo.conf.static import *
+except Exception as e:
+    raise e
