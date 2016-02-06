@@ -12,12 +12,6 @@ https://docs.djangoproject.com/en/{{ docs_version }}/ref/settings/
 
 import os
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/{{ docs_version }}/howto/deployment/checklist/
-
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY', '5(15ds+i2+%ik6z&!yer+ga9m=e%jcsadqiz_5wszg)r-z!2--b2d')
 
@@ -81,6 +75,7 @@ SITE_NAME = '{{ project_name }}'
 # redirect migrations
 MIGRATION_MODULES = {
     'web': 'leonardo_site.migrations.web',
+    'media': 'leonardo_site.migrations.media',
 }
 
 LEONARDO_BOOTSTRAP_URL = 'http://github.com/django-leonardo/django-leonardo/raw/master/contrib/bootstrap/demo.yaml'
