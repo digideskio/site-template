@@ -65,7 +65,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.environ.get('STATIC_ROOT', "/var/lib/leonardo/static")
+MEDIA_ROOT = os.environ.get('MEDIA_ROOT', "/var/lib/leonardo/media")
 
 SITE_ID = 1
 SITE_NAME = '{{ project_name }}'
