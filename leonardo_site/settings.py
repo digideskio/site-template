@@ -74,15 +74,6 @@ CACHES = {
 }
 # Internationalization
 # https://docs.djangoproject.com/en/{{ docs_version }}/topics/i18n/
-
-SWIFT_AUTH_URL = os.environ.get('SWIFT_AUTH_URL', 'http://10.0.170.10/v2.0')
-SWIFT_AUTH_VERSION = os.environ.get('SWIFT_AUTH_VERSION', 2)
-SWIFT_USERNAME = os.environ.get('SWIFT_USERNAME', 'swift')
-SWIFT_KEY = os.environ.get('SWIFT_KEY', 'swift')
-SWIFT_TENANT_NAME = os.environ.get('SWIFT_TENANT_NAME', 'service')
-SWIFT_USER_DOMAIN_NAME = os.environ.get('SWIFT_USER_DOMAIN_NAME', 'default')
-SWIFT_PROJECT_DOMAIN_NAME = os.environ.get('SWIFT_PROJECT_DOMAIN_NAME', 'default')
-
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -92,6 +83,18 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+# Openstack Swift Storage
+# https://github.com/blacktorn/django-storage-swift
+DEFAULT_FILE_STORAGE = 'swift.storage.SwiftStorage'
+SWIFT_AUTH_URL = os.environ.get('SWIFT_AUTH_URL', 'http://10.0.170.10/v2.0')
+SWIFT_AUTH_VERSION = os.environ.get('SWIFT_AUTH_VERSION', 2)
+SWIFT_USERNAME = os.environ.get('SWIFT_USERNAME', 'swift')
+SWIFT_KEY = os.environ.get('SWIFT_KEY', 'swift')
+SWIFT_TENANT_NAME = os.environ.get('SWIFT_TENANT_NAME', 'service')
+SWIFT_USER_DOMAIN_NAME = os.environ.get('SWIFT_USER_DOMAIN_NAME', 'default')
+SWIFT_PROJECT_DOMAIN_NAME = os.environ.get(
+    'SWIFT_PROJECT_DOMAIN_NAME', 'default')
 
 INTERNAL_IPS = ['*']
 DEBUG_TOOLBAR_PANELS = [
@@ -116,6 +119,7 @@ STATIC_URL = '/static/'
 
 STATIC_ROOT = os.environ.get('STATIC_ROOT', "/var/lib/leonardo/static")
 MEDIA_ROOT = os.environ.get('MEDIA_ROOT', "/var/lib/leonardo/media")
+
 
 SITE_ID = 1
 SITE_NAME = '{{ project_name }}'
