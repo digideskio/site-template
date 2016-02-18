@@ -19,7 +19,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', '5(15ds+i2+%ik6z&!yer+ga9m=e%jcsadqiz_
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Application definition
 
@@ -28,16 +28,28 @@ APPS = []
 # Database
 # https://docs.djangoproject.com/en/{{ docs_version }}/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ.get('DB_NAME', 'leonardo'),
-        'USER': os.environ.get('DB_USER', 'leonardo'),
-        'PASSWORD': os.environ.get('DB_PASS', 'leonardo'),
-        'HOST': os.environ.get('DB_SERVICE', 'postgres'),
-        'PORT': os.environ.get('DB_PORT', 5432)
+try:
+    import psycopg2  # noqa
+except Exception as e:
+
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
     }
-}
+
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': os.environ.get('DB_NAME', 'leonardo'),
+            'USER': os.environ.get('DB_USER', 'leonardo'),
+            'PASSWORD': os.environ.get('DB_PASS', 'leonardo'),
+            'HOST': os.environ.get('DB_SERVICE', 'postgres'),
+            'PORT': os.environ.get('DB_PORT', 5432)
+        }
+    }
 
 CACHES = {
     'default': {
