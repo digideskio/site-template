@@ -26,24 +26,15 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 APPS = []
 
-# Database
-# https://docs.djangoproject.com/en/{{ docs_version }}/ref/settings/#databases
-
-import socket
-
 
 def test_connection():
-    """Test whether the postgres database is available. Usage:
-
-        if "--offline" in sys.argv:
-            os.environ['DJANGO_SETTINGS_MODULE'] = 'myapp.settings.offline'
-        else:
-            os.environ['DJANGO_SETTINGS_MODULE'] = 'myapp.settings.standard'
-            from myapp.functions.connection import test_connection
-            test_connection()
+    """Test whether the postgres database is available
     """
+    import socket
+
     try:
-        s = socket.create_connection((os.environ.get('DB_SERVICE', 'postgres'), 5432), 5)
+        s = socket.create_connection(
+            (os.environ.get('DB_SERVICE', 'postgres'), 5432), 5)
         s.close()
     except socket.timeout:
         msg = """Can't detect the postgres server. If you're outside the
@@ -83,6 +74,14 @@ CACHES = {
 }
 # Internationalization
 # https://docs.djangoproject.com/en/{{ docs_version }}/topics/i18n/
+
+SWIFT_AUTH_URL = os.environ.get('SWIFT_AUTH_URL', 'http://10.0.170.10/v2.0')
+SWIFT_AUTH_VERSION = os.environ.get('SWIFT_AUTH_VERSION', 2)
+SWIFT_USERNAME = os.environ.get('SWIFT_USERNAME', 'swift')
+SWIFT_KEY = os.environ.get('SWIFT_KEY', 'swift')
+SWIFT_TENANT_NAME = os.environ.get('SWIFT_TENANT_NAME', 'service')
+SWIFT_USER_DOMAIN_NAME = os.environ.get('SWIFT_USER_DOMAIN_NAME', 'default')
+SWIFT_PROJECT_DOMAIN_NAME = os.environ.get('SWIFT_PROJECT_DOMAIN_NAME', 'default')
 
 LANGUAGE_CODE = 'en-us'
 
@@ -124,13 +123,4 @@ SITE_NAME = '{{ project_name }}'
 # redirect migrations
 MIGRATION_MODULES = {
     'web': 'leonardo_site.migrations.web',
-}
-
-LEONARDO_BOOTSTRAP_URL = 'http://github.com/django-leonardo/django-leonardo/raw/master/contrib/bootstrap/demo.yaml'
-
-# Dashboard custom fields
-LEONARDO_CONF_SPEC = {
-    'dashboard_menu': [],
-    'dashboard_widgets_abailable': [],
-    'dashboard_widgets': []
 }
