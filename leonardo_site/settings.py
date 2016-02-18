@@ -13,7 +13,8 @@ https://docs.djangoproject.com/en/{{ docs_version }}/ref/settings/
 import os
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY', '5(15ds+i2+%ik6z&!yer+ga9m=e%jcsadqiz_5wszg)r-z!2--b2d')
+SECRET_KEY = os.environ.get(
+    'SECRET_KEY', '5(15ds+i2+%ik6z&!yer+ga9m=e%jcsadqiz_5wszg)r-z!2--b2d')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -28,8 +29,29 @@ APPS = []
 # Database
 # https://docs.djangoproject.com/en/{{ docs_version }}/ref/settings/#databases
 
+import socket
+
+
+def test_connection():
+    """Test whether the postgres database is available. Usage:
+
+        if "--offline" in sys.argv:
+            os.environ['DJANGO_SETTINGS_MODULE'] = 'myapp.settings.offline'
+        else:
+            os.environ['DJANGO_SETTINGS_MODULE'] = 'myapp.settings.standard'
+            from myapp.functions.connection import test_connection
+            test_connection()
+    """
+    try:
+        s = socket.create_connection((os.environ.get('DB_SERVICE', 'postgres'), 5432), 5)
+        s.close()
+    except socket.timeout:
+        msg = """Can't detect the postgres server. If you're outside the
+        intranet, you might need to turn the VPN on."""
+        raise socket.timeout(msg)
+
 try:
-    import psycopg2  # noqa
+    test_connection()
 except Exception as e:
 
     DATABASES = {
