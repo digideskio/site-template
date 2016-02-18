@@ -95,6 +95,43 @@ SWIFT_TENANT_NAME = os.environ.get('SWIFT_TENANT_NAME', 'service')
 SWIFT_USER_DOMAIN_NAME = os.environ.get('SWIFT_USER_DOMAIN_NAME', 'default')
 SWIFT_PROJECT_DOMAIN_NAME = os.environ.get(
     'SWIFT_PROJECT_DOMAIN_NAME', 'default')
+SWIFT_CONTAINER_NAME = os.environ.get(
+    'SWIFT_CONTAINER_NAME', 'leonardo')
+SWIFT_AUTO_CREATE_CONTAINER = True
+SWIFT_AUTO_CREATE_CONTAINER_PUBLIC = True
+
+# ALL MEDIA ARE PUBLIC
+MEDIA_ENABLE_PERMISSIONS = False
+DEFAULT_MEDIA_STORAGES = {
+    'public': {
+        'main': {
+            'ENGINE': DEFAULT_FILE_STORAGE,
+            'UPLOAD_TO': 'filer.utils.generate_filename.by_date',
+            'OPTIONS': {},
+            'UPLOAD_TO_PREFIX': 'uploads',
+        },
+        'thumbnails': {
+            'ENGINE': DEFAULT_FILE_STORAGE,
+            'OPTIONS': {},
+            'THUMBNAIL_OPTIONS': {
+                'base_dir': 'public_thumbnails',
+            },
+        },
+    },
+    'private': {
+        'main': {
+            'ENGINE': DEFAULT_FILE_STORAGE,
+            'OPTIONS': {},
+            'UPLOAD_TO': 'filer.utils.generate_filename.by_date',
+            'UPLOAD_TO_PREFIX': 'private',
+        },
+        'thumbnails': {
+            'ENGINE': DEFAULT_FILE_STORAGE,
+            'OPTIONS': {},
+            'THUMBNAIL_OPTIONS': {},
+        },
+    },
+}
 
 INTERNAL_IPS = ['*']
 DEBUG_TOOLBAR_PANELS = [
