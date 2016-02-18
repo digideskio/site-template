@@ -127,3 +127,10 @@ MIGRATION_MODULES = {
 }
 
 LEONARDO_BOOTSTRAP_URL = 'http://github.com/django-leonardo/django-leonardo/raw/master/contrib/bootstrap/demo.yaml'
+
+# Dashboard custom fields
+LEONARDO_CONF_SPEC = {
+    'dashboard_menu': [],
+    'dashboard_widgets_abailable': [],
+    'dashboard_widgets': []
+}
